@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.joaovitorseiji.worshopmongo.domain.User;
 import com.joaovitorseiji.worshopmongo.dto.UserDTO;
@@ -50,8 +49,20 @@ public class UserService {
 		else
 			userRepository.deleteById(id);
 	}
-}
+	
+	public User update(User user){//Virá da requesição
+		User newObj =  findById(user.getId());
+		updateData(newObj, user);
+		return userRepository.save(newObj);
+	
+	}
+	
+	public void updateData(User newObj, User user) {
+		newObj.setId(user.getId());
+		newObj.setEmail(user.getEmail());
+		newObj.setName(user.getName());
+	}
 
-				
+}				
 		
 	
