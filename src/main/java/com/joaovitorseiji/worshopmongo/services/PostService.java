@@ -1,5 +1,6 @@
 package com.joaovitorseiji.worshopmongo.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.joaovitorseiji.worshopmongo.domain.Post;
 import com.joaovitorseiji.worshopmongo.repository.PostRepository;
+import com.joaovitorseiji.worshopmongo.repository.UserRepository;
 import com.joaovitorseiji.worshopmongo.services.exception.ObjectNotFoundException;
 
 @Service
@@ -23,5 +25,9 @@ public class PostService{
 		}else {
 		return obj.get();		
 				}
+	}
+	
+	public List<Post> findByTitle(String text){
+		return postRepository.findByTitleContainingIgnoreCase(text);
 	}
 }
