@@ -1,5 +1,6 @@
 package com.joaovitorseiji.worshopmongo.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.joaovitorseiji.worshopmongo.domain.Post;
 import com.joaovitorseiji.worshopmongo.repository.PostRepository;
-import com.joaovitorseiji.worshopmongo.repository.UserRepository;
 import com.joaovitorseiji.worshopmongo.services.exception.ObjectNotFoundException;
 
 @Service
@@ -29,5 +29,10 @@ public class PostService{
 	
 	public List<Post> findByTitle(String text){
 		return postRepository.searchTitle(text);
+	}
+	
+	public List<Post> fullSearch(String text, Date min, Date max){
+		max = new Date(max.getTime() + 24*60*60*1000);
+		return postRepository.fullSearch(text, min, max);
 	}
 }
